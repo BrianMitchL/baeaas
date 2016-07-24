@@ -4,6 +4,7 @@
   "description": "BAE as a Service",
   "main": "app.js",
   "scripts": {
+    "start": "node ./server/app.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
@@ -16,14 +17,17 @@
     "service",
     "regex"
   ],
-  "author": "",
-  "license": "MIT",
+  "author": "Brian Mitchell <bman4789@gmail.com>",
+  "license": "WTFPL",
   "bugs": {
     "url": "https://github.com/BrianMitchL/baeaas/issues"
   },
   "homepage": "https://github.com/BrianMitchL/baeaas#readme",
   "dependencies": {
     "body-parser": "^1.15.2",
-    "express": "^4.14.0"
+    "express": "^4.14.0",
+    "fs": "0.0.2",
+    "path": "^0.12.7",
+    "sanitizer": "^0.1.3"
   }
 }
