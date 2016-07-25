@@ -2,9 +2,9 @@
   "name": "baeaas",
   "version": "1.0.0",
   "description": "BAE as a Service",
-  "main": "app.js",
+  "main": "server/server.js",
   "scripts": {
-    "start": "node ./server/app.js",
+    "start": "node ./server/server.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {

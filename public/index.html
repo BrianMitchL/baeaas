@@ -1,17 +1,44 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>BAEaaS</title>
-    <link rel="stylesheet" href="http://yui.yahooapis.com/pure/0.6.0/pure-min.css">
+    <meta http-equiv="content-type" content="text/html; charset=utf-8">
+    <title>Bae as a Service (BAEaaS)</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/uikit/2.26.4/css/uikit.min.css" />
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <h1>BAEaaS - BAE as a Service</h1>
-    <form class="pure-form" action="/bae">
-        <input type="text" placeholder="put text here" name="input"></input>
-        <button type="submit" class="pure-button pure-button-primary">submit</button>
-    </form>
+<div class="uk-container uk-container-center">
+    <header>
+        <h1>BAEaaS<small class="uk-align-medium-right">BAE as a Service</small></h1>
+        <h3>A RESTful API for BAEifying your life.</h3>
+    </header>
+    <h2>Operations</h2>
+    <table class="uk-table">
+        <thead>
+            <tr>
+                <th>Path</th>
+                <th>Description</th>
+            </tr>
+        </thead>
+        <tbody>
+        <tr>
+            <td>/version</td>
+            <td>Will return the current fersion of BAEaaS</td>
+        </tr>
+        <tr>
+            <td>/operations</td>
+            <td>Will return a JSON list of operations with names and fields</td>
+        </tr>
+        <tr>
+            <td>/bae/:text</td>
+            <td>Will BAEify the given string, e.g. <a href="/bae/This%20way%20to%20bae">/bae/This%20way%20to%20bae</a> will return 'This bae to bae'</td>
+        </tr>
+        </tbody>
+    </table>
     <hr>
-    <p>Contribute on <a href="https://github.com/BrianMitchL/baeaas">GitHub</a></p>
+    <footer>
+        <p>Contribute on <a href="https://github.com/BrianMitchL/baeaas">GitHub</a></p>
+    </footer>
+</div>
 </body>
 </html>

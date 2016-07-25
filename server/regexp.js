@@ -3,4 +3,4 @@ var regexp = function() {
     return new RegExp(exp, "g");
 };
 
-module.exports  = {regexp};
+module.exports  = {regexp: regexp};
