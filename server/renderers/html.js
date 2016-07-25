@@ -4,7 +4,7 @@ module.exports = {
     name: 'HTML',
     mime: 'text/html',
     render: function (req, res) {
-        message = sanitizer.escape(req.message);
+        var message = sanitizer.escape(req.message);
         res.set('Content-Type', 'text/html');
         return res.send(`<!DOCTYPE html>
         <html>
@@ -25,6 +25,6 @@ module.exports = {
                 </footer>
             </div>
         </body>
-        </html>`)
+        </html>`);
     }
 };

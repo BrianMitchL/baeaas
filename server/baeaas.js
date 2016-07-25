@@ -1,5 +1,5 @@
-var BAEAAS, bodyParser, express, fs, npmPackage, path,
-    bind = function(fn, me){ return function(){ return fn.apply(me, arguments); }; };
+var BAEAAS, bodyParser, express, fs, path, npmPackage, regexp,
+    bind = function (fn, me) { return function () { return fn.apply(me, arguments); }; };
 
 express = require('express');
 bodyParser = require('body-parser');
@@ -8,8 +8,7 @@ path = require('path');
 npmPackage = require(path.resolve(__dirname, '../package.json'));
 regexp = require('./regexp');
 
-
-module.exports = BAEAAS = (function() {
+module.exports = BAEAAS = (function () {
     BAEAAS.prototype.VERSION = npmPackage.version;
 
     function BAEAAS(options) {
@@ -23,8 +22,8 @@ module.exports = BAEAAS = (function() {
         this.formats = {};
         this.formatsArray = [];
         this.app = express();
-        renderersPath = options.renderersPath || 'renderers';
-        operationsPath = options.operationsPath || 'operations';
+        this.renderersPath = options.renderersPath || 'renderers';
+        this.operationsPath = options.operationsPath || 'operations';
         this.app.use(bodyParser.json({
             extended: true,
             strict: false
@@ -41,18 +40,18 @@ module.exports = BAEAAS = (function() {
             res.header('Access-Control-Allow-Headers', 'Content-Type');
             return next();
         });
-        this.loadOperations(operationsPath);
-        this.app.use(express["static"]('./public'));
+        this.loadOperations(this.operationsPath);
+        this.app.use(express['static']('./public'));
         this.app.get('/', this.sendIndex);
         this.app.get('index.html', this.sendIndex);
-        this.app.options("*", function(req, res) {
+        this.app.options('*', function(req, res) {
             return res.end();
         });
-        this.loadRenderers(renderersPath);
+        this.loadRenderers(this.renderersPath);
     }
 
     BAEAAS.prototype.sendIndex = function(req, res) {
-        return res.sendfile(path.join(__dirname + "/public/index.html"));
+        return res.sendfile(path.join(__dirname + '/public/index.html'));
     };
 
     BAEAAS.prototype.loadRenderers = function(path) {
@@ -90,7 +89,7 @@ module.exports = BAEAAS = (function() {
         })(this));
         router.get('/bae/:text', (function(_this) {
             return function(req, res) {
-                var message = req.params.text.replace(regexp.regexp(), "bae");
+                var message = req.params.text.replace(regexp.regexp(), 'bae');
                 return _this.output(req, res, message);
             };
         })(this));
@@ -99,7 +98,7 @@ module.exports = BAEAAS = (function() {
 
     BAEAAS.prototype.start = function(port) {
         this.app.listen(port);
-        return console.log("BAEAAS v" + this.VERSION + " Started on port " + port);
+        return console.log('BAEAAS v' + this.VERSION + ' Started on port ' + port);
     };
 
     BAEAAS.prototype.output = function(req, res, message) {
@@ -116,13 +115,13 @@ module.exports = BAEAAS = (function() {
     BAEAAS.prototype.process = function(req, res) {
         var mime;
         mime = req.accepts(this.formatsArray);
-        if (mime == null) {
+        if (mime === null) {
             res.status(406);
             res.end();
             return;
         }
         this.formats[mime](req, res);
-        return console.log(new Date().toISOString() + " " + req.method + " " + req.originalUrl + " [" + res.statusCode.toString() + "] " + JSON.stringify(req.body));
+        return console.log(new Date().toISOString() + ' ' + req.method + ' ' + req.originalUrl + ' [' + res.statusCode.toString() + '] ' + JSON.stringify(req.body));
     };
 
     return BAEAAS;
