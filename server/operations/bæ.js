@@ -12,7 +12,7 @@ module.exports = {
     register: (app, output) => {
         return app.get('/b%C3%A6/:text', (req, res) => {
             var message = req.params.text.replace(regexp.regexp(), 'bæ');
-            return output(req, res, message);
+            output(req, res, message);
         });
     }
 };

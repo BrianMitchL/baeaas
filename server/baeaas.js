@@ -55,16 +55,14 @@ module.exports = BAEAAS = (function () {
     };
 
     BAEAAS.prototype.loadRenderers = function(path) {
-        var file, i, len, ref, renderer, results;
+        var file, i, len, ref, renderer;
         ref = fs.readdirSync(path);
-        results = [];
         for (i = 0, len = ref.length; i < len; i++) {
             file = ref[i];
             renderer = require(path + '/' + file);
             this.formatsArray.push(renderer.mime);
-            results.push(this.formats[renderer.mime] = renderer.render);
+            this.formats[renderer.mime] = renderer.render;
         }
-        return results;
     };
 
     BAEAAS.prototype.loadOperations = function(path) {
@@ -82,39 +80,29 @@ module.exports = BAEAAS = (function () {
             });
             this.operations[operation.url] = operation;
         }
-        router.get('/operations', (function(_this) {
-            return (req, res) => {
-                return res.send(_this.operationsArray);
-            };
-        })(this));
-        router.get('/bae/:text', (function(_this) {
-            return (req, res) => {
-                var message = req.params.text.replace(regexp.regexp(), 'bae');
-                return _this.output(req, res, message);
-            };
-        })(this));
-        return this.app.use(router);
+        router.get('/operations', (req, res) => {
+            res.send(this.operationsArray);
+        });
+        router.get('/bae/:text', (req, res) => {
+            var message = req.params.text.replace(regexp.regexp(), 'bae');
+            this.output(req, res, message);
+        });
+        this.app.use(router);
     };
 
     BAEAAS.prototype.start = function(port) {
         this.app.listen(port);
-        return console.log('BAEAAS v' + this.VERSION + ' Started on port ' + port);
+        console.log(`BAEAAS v${this.VERSION} Started on port ${port}`);
     };
 
     BAEAAS.prototype.output = function(req, res, message) {
         req.message = message;
-        var rout = (function(_this) {
-            return (req, res) => {
-                return _this.process(req, res, rout);
-            };
-        })(this);
-        return rout(req, res);
+        this.process(req, res);
     };
 
 
     BAEAAS.prototype.process = function(req, res) {
-        var mime;
-        mime = req.accepts(this.formatsArray);
+        var mime = req.accepts(this.formatsArray);
         if (mime === null) {
             res.status(406);
             res.end();
