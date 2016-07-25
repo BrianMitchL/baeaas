@@ -9,8 +9,8 @@ module.exports = {
             field: 'text'
         }
     ],
-    register: function(app, output) {
-        return app.get('/b%C3%A6/:text', function(req, res) {
+    register: (app, output) => {
+        return app.get('/b%C3%A6/:text', (req, res) => {
             var message = req.params.text.replace(regexp.regexp(), 'bæ');
             return output(req, res, message);
         });

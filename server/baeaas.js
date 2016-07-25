@@ -83,12 +83,12 @@ module.exports = BAEAAS = (function () {
             this.operations[operation.url] = operation;
         }
         router.get('/operations', (function(_this) {
-            return function(req, res) {
+            return (req, res) => {
                 return res.send(_this.operationsArray);
             };
         })(this));
         router.get('/bae/:text', (function(_this) {
-            return function(req, res) {
+            return (req, res) => {
                 var message = req.params.text.replace(regexp.regexp(), 'bae');
                 return _this.output(req, res, message);
             };
@@ -104,7 +104,7 @@ module.exports = BAEAAS = (function () {
     BAEAAS.prototype.output = function(req, res, message) {
         req.message = message;
         var rout = (function(_this) {
-            return function(req, res) {
+            return (req, res) => {
                 return _this.process(req, res, rout);
             };
         })(this);
