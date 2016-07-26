@@ -1,37 +1,39 @@
 {
-  "name": "baeaas",
-  "version": "1.0.0",
-  "description": "BAE as a Service",
-  "main": "server/server.js",
-  "scripts": {
-    "start": "node ./server/server.js",
-    "test": "echo \"Error: no test specified\" && exit 1"
-  },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/BrianMitchL/baeaas.git"
-  },
-  "keywords": [
-    "bae",
-    "as",
-    "service",
-    "regex"
-  ],
-  "author": "Brian Mitchell <bman4789@gmail.com>",
-  "license": "WTFPL",
-  "bugs": {
-    "url": "https://github.com/BrianMitchL/baeaas/issues"
-  },
-  "homepage": "https://github.com/BrianMitchL/baeaas#readme",
-  "dependencies": {
-    "body-parser": "^1.15.2",
-    "express": "^4.14.0",
-    "fs": "0.0.2",
-    "path": "^0.12.7",
-    "sanitizer": "^0.1.3"
-  },
-  "devDependencies": {
-    "eslint": "^3.1.1",
-    "eslint-config-standard": "^5.3.5"
-  }
+    "name": "baeaas",
+    "version": "1.0.0",
+    "description": "BAE as a Service",
+    "main": "server/server.js",
+    "scripts": {
+        "start": "node ./server/server.js",
+        "test": "echo \"Error: no test specified\" && exit 1"
+    },
+    "repository": {
+        "type": "git",
+        "url": "git+https://github.com/BrianMitchL/baeaas.git"
+    },
+    "keywords": [
+        "bae",
+        "as",
+        "service",
+        "regex"
+    ],
+    "author": "Brian Mitchell <bman4789@gmail.com>",
+    "license": "WTFPL",
+    "bugs": {
+        "url": "https://github.com/BrianMitchL/baeaas/issues"
+    },
+    "homepage": "https://github.com/BrianMitchL/baeaas#readme",
+    "dependencies": {
+        "body-parser": "^1.15.2",
+        "express": "^4.14.0",
+        "fs": "0.0.2",
+        "path": "^0.12.7",
+        "sanitizer": "^0.1.3"
+    },
+    "devDependencies": {
+        "eslint": "^3.1.1",
+        "eslint-config-standard": "^5.3.5",
+        "eslint-plugin-promise": "^2.0.0",
+        "eslint-plugin-standard": "^2.0.0"
+    }
 }
