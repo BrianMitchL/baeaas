@@ -6,7 +6,8 @@
   "scripts": {
     "lint": "./node_modules/.bin/eslint ./server/**/*.js",
     "start": "node ./server/server.js",
-    "auto-start": "./node_modules/.bin/nodemon --exec \"npm run lint && npm run start\" --ignore public"
+    "auto-start": "./node_modules/.bin/nodemon --exec \"npm run lint && npm run start\" --ignore public",
+    "test": "./node_modules/.bin/jasmine-node ./spec"
   },
   "repository": {
     "type": "git",
@@ -36,6 +37,8 @@
     "eslint-config-standard": "^5.3.5",
     "eslint-plugin-promise": "^2.0.0",
     "eslint-plugin-standard": "^2.0.0",
-    "nodemon": "^1.10.0"
+    "jasmine-node": "^1.14.5",
+    "nodemon": "^1.10.0",
+    "rfr": "^1.2.3"
   }
 }
