@@ -1,4 +1,5 @@
-# BAEaaS
+# BAEaaS [![Build Status](https://travis-ci.org/BrianMitchL/baeaas.svg?branch=master)](https://travis-ci.org/BrianMitchL/baeaas) [![Dependency Status](https://gemnasium.com/badges/github.com/BrianMitchL/baeaas.svg)](https://gemnasium.com/github.com/BrianMitchL/baeaas)
+
 BAE as a Service
 
 ## Installation
