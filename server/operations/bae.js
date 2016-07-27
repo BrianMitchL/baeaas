@@ -1,4 +1,4 @@
-var regexp = require('../regexp');
+const regexp = require('../regexp');
 
 module.exports = {
     name: 'BAE',
@@ -11,7 +11,7 @@ module.exports = {
     ],
     register: (app, output) => {
         return app.get('/bae/:text', (req, res) => {
-            var message = req.params.text.replace(regexp.regexp(), 'bae');
+            const message = req.params.text.replace(regexp(), 'bae');
             output(req, res, message);
         });
     }

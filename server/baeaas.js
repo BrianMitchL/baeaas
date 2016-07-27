@@ -1,29 +1,28 @@
-var BAEAAS, bodyParser, express, fs, path, npmPackage, regexp,
-    bind = function (fn, me) { return function () { return fn.apply(me, arguments); }; };
+const express = require('express');
+const bodyParser = require('body-parser');
+const fs = require('fs');
+const path = require('path');
+const npmPackage = require(path.resolve(__dirname, '../package.json'));
+const regexp = require('./regexp');
+const bind = function (fn, me) { return function () { return fn.apply(me, arguments); }; };
 
-express = require('express');
-bodyParser = require('body-parser');
-fs = require('fs');
-path = require('path');
-npmPackage = require(path.resolve(__dirname, '../package.json'));
-regexp = require('./regexp');
 
-module.exports = BAEAAS = (function () {
-    BAEAAS.prototype.VERSION = npmPackage.version;
-
-    function BAEAAS(options) {
+class BAEAAS {
+    constructor(options) {
         this.process = bind(this.process, this);
         this.output = bind(this.output, this);
         this.start = bind(this.start, this);
         this.loadOperations = bind(this.loadOperations, this);
         this.loadRenderers = bind(this.loadRenderers, this);
+        var operationsPath, renderersPath;
+        this.VERSION = npmPackage.version;
         this.operations = {};
         this.operationsArray = [];
         this.formats = {};
         this.formatsArray = [];
         this.app = express();
-        this.renderersPath = options.renderersPath || 'renderers';
-        this.operationsPath = options.operationsPath || 'operations';
+        renderersPath = options.renderersPath || 'renderers';
+        operationsPath = options.operationsPath || 'operations';
         this.app.use(bodyParser.json({
             extended: true,
             strict: false
@@ -34,42 +33,42 @@ module.exports = BAEAAS = (function () {
         this.app.use(bodyParser.text({
             extended: true
         }));
-        this.app.use(function(req, res, next) {
+        this.app.use((req, res, next) => {
             res.header('Access-Control-Allow-Origin', '*');
             res.header('Access-Control-Allow-Methods', 'GET, OPTIONS');
             res.header('Access-Control-Allow-Headers', 'Content-Type');
             return next();
         });
-        this.loadOperations(this.operationsPath);
+        this.loadOperations(operationsPath);
         this.app.use(express['static']('./public'));
         this.app.get('/', this.sendIndex);
         this.app.get('index.html', this.sendIndex);
-        this.app.options('*', function(req, res) {
+        this.app.options('*', (req, res) => {
             return res.end();
         });
-        this.loadRenderers(this.renderersPath);
+        this.loadRenderers(renderersPath);
     }
 
-    BAEAAS.prototype.sendIndex = function(req, res) {
-        return res.sendfile(path.join(__dirname + '/public/index.html'));
-    };
+    sendIndex(req, res) {
+        return res.sendFile(path.join(__dirname + '/public/index.html'));
+    }
 
-    BAEAAS.prototype.loadRenderers = function(path) {
-        var file, i, len, ref, renderer;
-        ref = fs.readdirSync(path);
-        for (i = 0, len = ref.length; i < len; i++) {
+    loadRenderers(path) {
+        let file, renderer;
+        const ref = fs.readdirSync(path);
+        for (let i = 0; i < ref.length; i++) {
             file = ref[i];
             renderer = require(path + '/' + file);
             this.formatsArray.push(renderer.mime);
             this.formats[renderer.mime] = renderer.render;
         }
-    };
+    }
 
-    BAEAAS.prototype.loadOperations = function(path) {
-        var file, i, len, operation, ref, router;
-        router = express.Router();
-        ref = fs.readdirSync(path);
-        for (i = 0, len = ref.length; i < len; i++) {
+    loadOperations(path) {
+        let file, operation;
+        const router = express.Router();
+        const ref = fs.readdirSync(path);
+        for (let i = 0; i < ref.length; i++) {
             file = ref[i];
             operation = require(path + '/' + file);
             operation.register(router, this.output, this.VERSION);
@@ -84,25 +83,24 @@ module.exports = BAEAAS = (function () {
             res.send(this.operationsArray);
         });
         router.get('/bae/:text', (req, res) => {
-            var message = req.params.text.replace(regexp.regexp(), 'bae');
+            const message = req.params.text.replace(regexp(), 'bae');
             this.output(req, res, message);
         });
         this.app.use(router);
-    };
+    }
 
-    BAEAAS.prototype.start = function(port) {
+    start(port) {
         this.app.listen(port);
         console.log(`BAEAAS v${this.VERSION} Started on port ${port}`);
-    };
+    }
 
-    BAEAAS.prototype.output = function(req, res, message) {
+    output(req, res, message) {
         req.message = message;
         this.process(req, res);
-    };
+    }
 
-
-    BAEAAS.prototype.process = function(req, res) {
-        var mime = req.accepts(this.formatsArray);
+    process(req, res) {
+        const mime = req.accepts(this.formatsArray);
         if (mime === null) {
             res.status(406);
             res.end();
@@ -110,8 +108,7 @@ module.exports = BAEAAS = (function () {
         }
         this.formats[mime](req, res);
         return console.log(new Date().toISOString() + ' ' + req.method + ' ' + req.originalUrl + ' [' + res.statusCode.toString() + '] ' + JSON.stringify(req.body));
-    };
+    }
+}
 
-    return BAEAAS;
-
-})();
+module.exports = BAEAAS;

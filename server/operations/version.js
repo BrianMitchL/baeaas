@@ -4,7 +4,7 @@ module.exports = {
     fields: [],
     register: (app, output, version) => {
         return app.get('/version', (req, res) => {
-            var message = 'Version ' + version;
+            const message = 'Version ' + version;
             output(req, res, message);
         });
     }

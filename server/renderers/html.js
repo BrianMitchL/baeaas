@@ -1,10 +1,10 @@
-var sanitizer = require('sanitizer');
+const sanitizer = require('sanitizer');
 
 module.exports = {
     name: 'HTML',
     mime: 'text/html',
     render: (req, res) => {
-        var message = sanitizer.escape(req.message);
+        const message = sanitizer.escape(req.message);
         res.set('Content-Type', 'text/html');
         return res.send(`<!DOCTYPE html>
         <html>
