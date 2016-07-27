@@ -4,9 +4,9 @@
   "description": "BAE as a Service",
   "main": "server/server.js",
   "scripts": {
-    "lint": "node node_modules/eslint/bin/eslint.js ./server/**/*.js",
+    "lint": "./node_modules/.bin/eslint ./server/**/*.js",
     "start": "node ./server/server.js",
-    "auto-start": "node node_modules/nodemon/bin/nodemon.js --exec \"npm run lint && npm run start\" --ignore pulic"
+    "auto-start": "./node_modules/.bin/nodemon --exec \"npm run lint && npm run start\" --ignore public"
   },
   "repository": {
     "type": "git",
