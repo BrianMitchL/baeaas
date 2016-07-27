@@ -1,4 +1,11 @@
 language: node_js
 node_js:
-  - "6"
-  - "6.1"
+- '6'
+- '6.1'
+- '6.2'
+- '6.3'
+deploy:
+  provider: heroku
+  app: baeaas
+  api_key:
+    secure: hWmGG9Sfba0dC98hPVjeBiJE9Q8gTldqCOf0/Z3qbkp/yu01uDaApTRasaxQd1iHie0yHVGdLpe8PVXX6nfhDWLCoDJPLlViUeVfYrbWjyz+S00m60Eto1ZAnuYwbKqJQKPkHd54ljNHt6IvVwtSqhp3M/xBZUfWuybSyAAFsaaVB4D0qWG+pqjf6PuKQco4pdkrD7buLVJvjGb8dIVQeojBoIkGuSnBUvHbA2r/1lkZ3Jm6ys+u/5JCzCJqW7sNz88K38JvUp2G82ABQX9eBkJmQi20IXp1xC4fRF5WRUZynTY7DGbmhcQ2gy/NQKgha7JXmSgkq1rtj7D4aZrJr5wAmAWcfy3obVU986jXKoyOwZsU69esbKHAQraJEeO97cR690nvW/S/8Jl4M/kEYcdGVKyitiBoy4jvet1kK/r62YlOquzpScZF8L7GyzOmtC9Rc6ZkCLJ+xVwOi4/9JThORZ5vFIdNCUr3LHGiIGVzLDt5ue5dnbjS58nOzE7rzjwxs8yCVcfZFDIlcwWszAY77pTj2FFj5bSkerffmnG8PzAsNGMXyVZffvb80dZ9r9T0RX+rtCQWHz3uvVeMjyCa5QTHQlY1hx1Vy8UKWgi3et6U9LgPOsEWx/8sBS5kaK6H8z08gpr+oapWOG/V5UrrsSe6u9UjbF8IamVYgLU=
