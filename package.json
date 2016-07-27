@@ -2,6 +2,9 @@
   "name": "baeaas",
   "version": "1.0.0",
   "description": "BAE as a Service",
+  "engines": {
+    "node": "6.3.x"
+  },
   "main": "server/server.js",
   "scripts": {
     "lint": "./node_modules/.bin/eslint ./server/**/*.js",
